@@ -1,0 +1,9 @@
+config CHIPSEA_CS1237_ADC
+	tristate "CS1237 ADC driver"
+	help
+	  CS1237 is a high-precision, low-power analog-to-digital converter with one
+	  differential input channel and a built-in temperature sensor and high-
+	  precision oscillator. The MCU can communicate with and configure CS1237
+	  through 2-wire SPI interfaces, SCLK, and DRDY, such as the channel, PGA,
+	  and output rate selection.
+	default n
