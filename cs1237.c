@@ -20,6 +20,7 @@
 #include <linux/interrupt.h>
 #include <linux/poll.h>
 #include <linux/wait.h>
+#include <linux/version.h>
 
 #include "cs1237.h"
 
@@ -485,7 +486,12 @@ static const struct iio_info cs1237_info = {
 };
 #endif
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 10, 0)
+static void cs1237_remove(struct platform_device *pdev)
+#else
 static int cs1237_remove(struct platform_device *pdev)
+#endif
+
 {
 	struct cs1237_data *data = platform_get_drvdata(pdev);
 	dev_info(&pdev->dev, "remove\n");
@@ -499,7 +505,9 @@ static int cs1237_remove(struct platform_device *pdev)
 	iio_device_unregister(data->indio_dev);
 #endif
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 10, 0)
 	return 0;
+#endif
 }
 
 static int cs1237_probe(struct platform_device *pdev)
